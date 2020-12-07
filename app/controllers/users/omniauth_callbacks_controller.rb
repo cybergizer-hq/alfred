@@ -21,12 +21,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def from_omniauth(auth)
-    User.where(email: auth.info.email).first_or_create do |user|
-      user.first_name = auth.extra.raw_info.first_name
-      user.last_name = auth.extra.raw_info.last_name
-      user.dob = Date.parse('01-01-1970')
-      user.uid = auth.uid
-      user.email = auth.info.email
+    User.find_or_initialize_by(email: auth.info.email).tap |u| do
+      u.uid = auth.uid
+      u.first_name = auth.extra.raw_info.first_name if u.first_name.blank?
+      u.last_name = auth.extra.raw_info.last_name if u.last_name.blank?
+
+      u.save
     end
   end
 end
