@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :oauth_applications, through: :app_admissions
   accepts_nested_attributes_for :app_admissions
 
+  validates :dob, presence: true
+
   after_commit :add_default_avatar, on: %i[create update]
 
   devise :omniauthable, :lockable, :trackable

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_143305) do
+ActiveRecord::Schema.define(version: 2020_12_07_164149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_143305) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "avatar"
-    t.date "dob"
+    t.date "dob", default: "1970-01-01", null: false
     t.boolean "is_admin", default: false
     t.string "magic_link_token"
     t.datetime "deactivated_at"
