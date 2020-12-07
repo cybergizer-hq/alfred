@@ -21,7 +21,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def from_omniauth(auth)
-    User.find_or_initialize_by(email: auth.info.email).tap |u| do
+    User.find_or_initialize_by(email: auth.info.email).tap do |u|
       u.uid = auth.uid
       u.first_name = auth.extra.raw_info.first_name if u.first_name.blank?
       u.last_name = auth.extra.raw_info.last_name if u.last_name.blank?
