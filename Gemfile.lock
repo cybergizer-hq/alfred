@@ -14,14 +14,6 @@ GIT
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
 
-GIT
-  remote: https://github.com/valkovik15/doorkeeper-openid_connect.git
-  revision: 18d708c5f62932e833e2cc4d50f2f3b62a01300b
-  specs:
-    doorkeeper-openid_connect (1.7.4)
-      doorkeeper (>= 5.2, < 5.5)
-      json-jwt (>= 1.11.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,8 +75,8 @@ GEM
       zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    aes_key_wrap (1.0.1)
-    ast (2.4.0)
+    aes_key_wrap (1.1.0)
+    ast (2.4.2)
     aws-eventstream (1.1.0)
     aws-partitions (1.296.0)
     aws-sdk-core (3.94.0)
@@ -102,7 +94,7 @@ GEM
     aws-sigv4 (1.1.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.13)
-    bindata (2.4.7)
+    bindata (2.4.10)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
@@ -117,8 +109,11 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    doorkeeper (5.3.1)
+    doorkeeper (5.6.0.rc2)
       railties (>= 5)
+    doorkeeper-openid_connect (1.8.2)
+      doorkeeper (>= 5.5, < 5.7)
+      json-jwt (>= 1.11.0)
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
@@ -134,9 +129,9 @@ GEM
     hashie (4.1.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.4)
     jmespath (1.4.0)
-    json-jwt (1.13.0)
+    json (2.6.2)
+    json-jwt (1.14.0)
       activesupport (>= 4.2)
       aes_key_wrap
       bindata
@@ -157,7 +152,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.4)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
@@ -177,19 +174,22 @@ GEM
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
+    omniauth-discord (1.0.0)
+      omniauth
+      omniauth-oauth2
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
-    parallel (1.19.1)
-    parser (2.7.1.0)
-      ast (~> 2.4.0)
+    parallel (1.22.1)
+    parser (3.1.2.0)
+      ast (~> 2.4.1)
     pg (1.2.3)
     pry (0.13.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.5)
-    puma (4.3.3)
+    puma (4.3.12)
       nio4r (~> 2.0)
     rack (2.2.2)
     rack-test (1.1.0)
@@ -220,28 +220,33 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     rake (13.0.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    regexp_parser (2.5.0)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.4)
-    rubocop (0.81.0)
-      jaro_winkler (~> 1.5.1)
+    rexml (3.2.5)
+    rubocop (1.32.0)
+      json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 2.7.0.1)
+      parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
-      rexml
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.19.1, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-rails (2.5.2)
-      activesupport
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.19.1)
+      parser (>= 3.1.1.0)
+    rubocop-rails (2.15.2)
+      activesupport (>= 4.2.0)
       rack (>= 1.1)
-      rubocop (>= 0.72.0)
-    ruby-progressbar (1.10.1)
+      rubocop (>= 1.7.0, < 2.0)
+    ruby-progressbar (1.11.0)
     ruby_dep (1.5.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -269,7 +274,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    unicode-display_width (1.7.0)
+    unicode-display_width (2.2.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -292,20 +297,21 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   devise
-  doorkeeper
-  doorkeeper-openid_connect!
+  doorkeeper (~> 5.6.0.rc2)
+  doorkeeper-openid_connect (~> 1.8, >= 1.8.2)
   dotenv-rails
   fast_jsonapi
   letter_opener (~> 1.7)
   listen (>= 3.0.5, < 3.2)
   omniauth (~> 1.9)
+  omniauth-discord
   omniauth-yandex!
   pg (>= 0.18, < 2.0)
   pry
-  puma (~> 4.1)
+  puma (~> 4.3.12)
   rails (~> 6.0.2, >= 6.0.2.2)
-  rubocop (~> 0.81.0)
-  rubocop-rails (~> 2.5)
+  rubocop (~> 1.32)
+  rubocop-rails (~> 2.15, >= 2.15.2)
   sass-rails (>= 6)
   sentry-raven (~> 3.0)
   shotgun
