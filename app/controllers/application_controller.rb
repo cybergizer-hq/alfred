@@ -15,14 +15,14 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     return if current_user.admin?
 
-    redirect_to login_url
+    redirect_to new_session_url
   end
 
   def authenticate_user!
     if user_signed_in?
       super
     else
-      redirect_to login_path
+      redirect_to new_session_path
     end
   end
 

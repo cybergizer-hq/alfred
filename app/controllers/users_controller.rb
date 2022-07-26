@@ -3,6 +3,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
   skip_before_action :authenticate_user!, only: %i[invite_self magic_login]
+  skip_before_action :store_user_location!, only: :edit
 
   def show; end
 
@@ -10,7 +11,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'Profile was successfully updated.'
+      redirect_to after_sign_in_path_for(@user), notice: 'Profile was successfully updated.'
     else
       render :edit
     end

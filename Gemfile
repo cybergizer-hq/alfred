@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '3.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.3.12'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -48,9 +50,10 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'devise'
-gem 'doorkeeper'
-gem 'doorkeeper-openid_connect', github: 'valkovik15/doorkeeper-openid_connect'
+gem 'doorkeeper', '~> 5.6.0.rc2'
+gem 'doorkeeper-openid_connect', '~> 1.8', '>= 1.8.2'
 gem 'omniauth', '~> 1.9'
+gem 'omniauth-discord'
 gem 'omniauth-yandex', github: 'evrone/omniauth-yandex', branch: 'master'
 gem 'pry'
 
@@ -69,3 +72,8 @@ gem 'action_policy', '~> 0.4.0'
 gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
 
 gem 'sentry-raven', '~> 3.0'
+
+gem 'httparty', '~> 0.20.0'
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false

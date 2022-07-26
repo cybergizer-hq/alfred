@@ -31,3 +31,5 @@
 
 en:
   hello: "Hello world"
+  update_profile: Update your profile please!
+  non_cg_alert: Only Cybergizer Members can log in.
