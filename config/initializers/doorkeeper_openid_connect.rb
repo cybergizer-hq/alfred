@@ -18,7 +18,7 @@ Doorkeeper::OpenidConnect.configure do
   reauthenticate_resource_owner do |resource_owner, return_to|
     store_location_for resource_owner, return_to
     sign_out resource_owner
-    redirect_to new_user_session_url
+    redirect_to new_session_url
   end
 
   # Depending on your configuration, a DoubleRenderError could be raised

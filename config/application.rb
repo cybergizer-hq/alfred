@@ -25,8 +25,8 @@ module Alfred
     config.load_defaults 6.0
 
     config.to_prepare do
-      Doorkeeper::OpenidConnect::DiscoveryController.skip_before_action :authenticate_user!
-      Doorkeeper::OpenidConnect::UserinfoController.skip_before_action :authenticate_user!
+      Doorkeeper::OpenidConnect::DiscoveryController.skip_before_action :authenticate_user!, raise: false
+      Doorkeeper::OpenidConnect::UserinfoController.skip_before_action :authenticate_user!, raise: false
     end
 
     # Settings in config/environments/* take precedence over those specified here.
