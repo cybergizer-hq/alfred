@@ -26,6 +26,6 @@ Rails.application.routes.draw do
   as :user do
     delete '/sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
-  get '/login' => 'application#login', as: :new_session
+  get '/login' => 'application#login', as: :login
   root to: 'users#show'
 end

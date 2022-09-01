@@ -261,8 +261,6 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth :yandex, ENV['YANDEX_KEY'], ENV['YANDEX_SECRET']
 
-  config.omniauth :discord, ENV['DISCORD_KEY'], ENV['DISCORD_SECRET'], scope: 'email identify'
-
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

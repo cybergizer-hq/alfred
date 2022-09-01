@@ -13,7 +13,7 @@ Doorkeeper.configure do
     user = current_user || warden.authenticate!(:scope => :user)
     unless user
       session['user_return_to'] = request.url
-      redirect_to(new_session_url)
+      redirect_to(new_user_session_url)
     end
 
     if user.deactivated_at?
@@ -25,6 +25,7 @@ Doorkeeper.configure do
     end
     user
   end
+
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
