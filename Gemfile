@@ -46,9 +46,11 @@ gem 'pry'
 
 gem 'dotenv-rails'
 
-gem "rubocop", "~> 0.81.0"
+gem 'rubocop'
 
-gem "rubocop-rails", "~> 2.5"
+gem 'rubocop-rspec'
+
+gem "rubocop-rails", require: false
 
 gem "aws-sdk-s3", require: false
 
