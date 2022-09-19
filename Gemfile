@@ -23,23 +23,23 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  gem 'letter_opener', '~> 1.7'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'shotgun'
-  gem 'letter_opener', '~> 1.7'
+  gem 'web-console', '>= 3.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'devise'
 gem 'doorkeeper'
 gem 'doorkeeper-openid_connect', github: 'valkovik15/doorkeeper-openid_connect'
-gem 'devise'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-yandex', github: 'evrone/omniauth-yandex', branch: 'master'
 gem 'pry'
@@ -50,12 +50,12 @@ gem 'rubocop'
 
 gem 'rubocop-rspec'
 
-gem "rubocop-rails", require: false
+gem 'rubocop-rails', require: false
 
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 
-gem "action_policy", "~> 0.4.0"
+gem 'action_policy', '~> 0.4.0'
 
 gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
 
-gem "sentry-raven", "~> 3.0"
+gem 'sentry-raven', '~> 3.0'
