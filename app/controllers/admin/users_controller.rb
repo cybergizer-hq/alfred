@@ -4,7 +4,7 @@ module Admin
   class UsersController < ApplicationController
     before_action :authenticate_admin!
     before_action :set_user, only: %i[show edit update destroy deactivate activate]
-    before_action :set_application_names, only: %i[edit new]
+    before_action :set_application_names
     before_action :prevent_empty_params, only: %i[update]
 
     layout 'doorkeeper/admin'
