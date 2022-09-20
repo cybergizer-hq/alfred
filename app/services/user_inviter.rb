@@ -8,6 +8,7 @@ class UserInviter
   def invite
     @user = User.find_by(email: @email)
     return nil unless @user
+
     @user.update(magic_link_token: generate_token)
     send_mail
   end

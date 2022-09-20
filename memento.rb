@@ -25,7 +25,7 @@ module OmniAuth
 
         ALFRED_APP_URL = ENV.fetch('ALFRED_APP_URL', 'https://alfred-cg.herokuapp.com')
       rescue LoadError
-        ALFRED_APP_URL = 'https://alfred-cg.herokuapp.com'
+        ALFRED_APP_URL = 'https://alfred-cg.herokuapp.com'.freeze
       end
 
       option :name, :alfred
@@ -70,8 +70,7 @@ class Memento < Sinatra::Base
 
   get '/auth/:name/callback' do
     auth = request.env['omniauth.auth']
-    binding.pry
-    "#{auth.inspect}"
+    auth.inspect.to_s
   end
 end
 
