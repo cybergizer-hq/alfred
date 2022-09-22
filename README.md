@@ -31,7 +31,7 @@ To authenticate a user through Alfred on the frontend, follow these steps:
     ```
 4. Send the code to the backend with a post request:
     ```bash
-    POST 'https://{HOST_OF_BACKEND_APPLICATION}/auth'
+    POST 'https://{HOST_OF_BACKEND_APPLICATION}/api/v1/auth'
     ```
 
     ```json
