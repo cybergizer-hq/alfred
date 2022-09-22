@@ -13,15 +13,18 @@ Alfred is a proprietary technology for user authentication. This is a standalone
 - Custom validations for Cybergizer members   <img src='https://cdn-icons-png.flaticon.com/512/508/508250.png' width='25'>
 - Token generation   <img src='https://cdn-icons-png.flaticon.com/512/1680/1680173.png' width='25'>
 
-## How to use it on the frontend?
+## How to use it?
 
-To authenticate a user through Alfred on the frontend, follow these steps:
+To authenticate a user through Alfred, follow these steps:
 
 1. Your application must be registered in Alfred.
+
+## On the frontend
+
 2. You need to redirect user to Alfred (more info [here](https://github.com/cybergizer-hq/alfred/wiki/Authorization-Request)):
     
     ```bash
-    'https://alfred-cg.herokuapp.com/oauth/authorize?client_id={UID_OF_YOUR_APPLICATION}&redirect_uri=https%3A%2F%2{HOST_OF_YOUR_APPLICATION}&response_type=code&scope=user'
+    'https://alfred-cg.herokuapp.com/oauth/authorize?client_id={UID_OF_YOUR_APPLICATION}&redirect_uri={REDIRECT_URI_OF_YOUR_APPLICATION}&response_type=code&scope=user'
     ```
     
 3. After the user is successfully authenticated, Alfred will send the code:
@@ -39,6 +42,59 @@ To authenticate a user through Alfred on the frontend, follow these steps:
       "code": "{YOUR_CODE}"
     }
     ```
+   
+## On the backend
+
+5. Send a request to get a token from alfred using the code you received earlier:
+
+   ```bash
+   POST 'https://alfred-cg.herokuapp.com/oauth/token'
+   ```
+   
+   with body:
+   
+   ```json
+   {
+     "grant_type": "authorization_code",
+     "code": "{YOUR_CODE}",
+     "client_id": "{UID_OF_YOUR_APPLICATION}",
+     "client_secret": "{SECRET_OF_YOUR_APPLICATION}",
+     "redirect_uri": "{REDIRECT_URI_OF_YOUR_APPLICATION}",
+     "scope": "user"
+   }
+   ```
+
+    
+6. Submit a request to obtain user data from Alfred:
+
+    ```bash
+    GET 'https://alfred-cg.herokuapp.com/api/v1/users/me'
+    ```
+    
+    with header:
+
+    ```json
+    {
+      "authorization": "Bearer #{YOUR_CODE}"
+    }
+    ```
+    
+    After that, you will receive data about the user in json format, like this:
+    
+    ```json
+    {
+      "id": 1,
+      "uid": "1130004065675965",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@cybergizer.com",
+      "dob": "2000-01-01",
+      "avatar": "https://alfred-cg.herokuapp.com/rails/active_storage/database/....jpg"
+    } 
+    ```
+    
+    Use this data to create a user in your client application.
+
 
 ## Documentation
 
