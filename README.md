@@ -19,12 +19,16 @@ To authenticate a user through Alfred, follow these steps:
 
 1. Your application must be registered in Alfred.
 
+```bash
+ALFRED_HOST = alfred.cybergizer.com
+```
+
 ## On the frontend
 
 2. You need to redirect user to Alfred (more info [here](https://github.com/cybergizer-hq/alfred/wiki/Authorization-Request)):
     
     ```bash
-    'https://alfred-cg.herokuapp.com/oauth/authorize?client_id={UID_OF_YOUR_APPLICATION}&redirect_uri={REDIRECT_URI_OF_YOUR_APPLICATION}&response_type=code&scope=user'
+    'https://{ALFRED_HOST}/oauth/authorize?client_id={UID_OF_YOUR_APPLICATION}&redirect_uri={REDIRECT_URI_OF_YOUR_APPLICATION}&response_type=code&scope=user'
     ```
     
 3. After the user is successfully authenticated, Alfred will send the code:
@@ -48,7 +52,7 @@ To authenticate a user through Alfred, follow these steps:
 5. Send a request to get a token from alfred using the code you received earlier:
 
    ```bash
-   POST 'https://alfred-cg.herokuapp.com/oauth/token'
+   POST 'https://{ALFRED_HOST}/oauth/token'
    ```
    
    with body:
@@ -68,7 +72,7 @@ To authenticate a user through Alfred, follow these steps:
 6. Submit a request to obtain user data from Alfred:
 
     ```bash
-    GET 'https://alfred-cg.herokuapp.com/api/v1/users/me'
+    GET 'https://{ALFRED_HOST}/api/v1/users/me'
     ```
     
     with header:
@@ -89,7 +93,7 @@ To authenticate a user through Alfred, follow these steps:
       "last_name": "Doe",
       "email": "john.doe@cybergizer.com",
       "dob": "2000-01-01",
-      "avatar": "https://alfred-cg.herokuapp.com/rails/active_storage/database/....jpg"
+      "avatar": "https://{ALFRED_HOST}/rails/active_storage/database/....jpg"
     } 
     ```
     
