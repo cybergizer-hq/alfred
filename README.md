@@ -8,7 +8,7 @@ Alfred is a proprietary technology for user authentication. This is a standalone
 
 ## Features
 
-- Strategy to authenticate with Discord via OAuth2   <img src='https://cdn-icons-png.flaticon.com/512/5968/5968756.png' width='22'>
+- Strategy to authenticate with Discord via OAuth2   <img src='https://cdn-icons-png.flaticon.com/512/2111/2111370.png' width='22'>
 - Ability to invite users   <img src='https://cdn-icons-png.flaticon.com/512/921/921347.png' width='25'>
 - Custom validations for Cybergizer members   <img src='https://cdn-icons-png.flaticon.com/512/508/508250.png' width='25'>
 - Token generation   <img src='https://cdn-icons-png.flaticon.com/512/1680/1680173.png' width='25'>
