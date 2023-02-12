@@ -260,7 +260,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
 
-  config.omniauth :discord, '1072876631200378971', 'p-kwpyIzo3IxdQAfWKZLLG2JIBYTMFcy', scope:'email identify guilds'
+  config.omniauth :discord, ENV['DISCORD_CLIENT_ID'], ENV['DISCORD_CLIENT_SECRET'], scope: ENV['DISCORD_SCOPE']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

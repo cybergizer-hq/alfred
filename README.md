@@ -8,7 +8,7 @@ Alfred is a proprietary technology for user authentication. This is a standalone
 
 ## Features
 
-- Strategy to authenticate with Yandex via OAuth2   <img src='https://cdn-icons-png.flaticon.com/512/226/226266.png' width='22'>
+- Strategy to authenticate with Discord via OAuth2   <img src='https://cdn-icons-png.flaticon.com/512/5968/5968756.png' width='22'>
 - Ability to invite users   <img src='https://cdn-icons-png.flaticon.com/512/921/921347.png' width='25'>
 - Custom validations for Cybergizer members   <img src='https://cdn-icons-png.flaticon.com/512/508/508250.png' width='25'>
 - Token generation   <img src='https://cdn-icons-png.flaticon.com/512/1680/1680173.png' width='25'>
@@ -140,7 +140,7 @@ Alfred uses the following gems:
 | Ruby | 2.7.1 |
 | Rails | 6.0.2 |
 | [Omniauth](https://github.com/omniauth/omniauth) | 1.9 |
-| [Omniauth-yandex](https://github.com/evrone/omniauth-yandex) | - |
+| [Omniauth-discord](https://github.com/adaoraul/omniauth-discord) | - |
 | [Doorkeeper](https://github.com/doorkeeper-gem/doorkeeper) | 5.3 |
 | [Doorkeeper-openid_connect](https://github.com/doorkeeper-gem/doorkeeper-openid_connect) | - |
 | [Devise](https://github.com/heartcombo/devise) | 4.7 |

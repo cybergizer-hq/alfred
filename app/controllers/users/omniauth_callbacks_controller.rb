@@ -3,32 +3,30 @@
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     skip_before_action :authenticate_user!
+    before_action :guild_member?
 
-    before_action :non_cg_members
+    def discord
+      @user = User.from_omniauth(request.env['omniauth.auth'])
 
-    def yandex
-      user = from_omniauth(request.env['omniauth.auth'])
-      sign_in(user)
-      redirect_to after_sign_in_path_for(user)
+      if @user.persisted?
+        sign_in_and_redirect @user
+        set_flash_message(:notice, :success, kind: 'Discord') if is_navigational_format?
+      else
+        session['devise.discord_data'] = request.env['omniauth.auth'].except(:extra)
+        redirect_to new_user_registration_url
+      end
     end
 
     private
 
-    def non_cg_members
-      email = request.env['omniauth.auth'].info.email
-      return if email.include?('@cybergizer.com') || User.find_by(email: email)
+    def guild_member?
+      return if Discord::GuildMemberValidator.new(guilds, ENV['CYBERGIZER_SERVER_ID']).call
 
-      redirect_to login_url, notice: 'Only Cybergizer Members can log in'
+      redirect_to root_path, notice: t('non_cybergizer_server_member_alert')
     end
 
-    def from_omniauth(auth)
-      User.find_or_initialize_by(email: auth.info.email).tap do |u|
-        u.uid = auth.uid
-        u.first_name = auth.extra.raw_info.first_name if u.first_name.blank?
-        u.last_name = auth.extra.raw_info.last_name if u.last_name.blank?
-
-        u.save
-      end
+    def guilds
+      Discord::Guilds.new(request).call
     end
   end
 end
