@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -51,6 +53,7 @@ gem 'devise'
 gem 'doorkeeper'
 gem 'doorkeeper-openid_connect', github: 'valkovik15/doorkeeper-openid_connect'
 gem 'omniauth', '~> 1.9'
+gem 'omniauth-discord'
 gem 'omniauth-yandex', github: 'evrone/omniauth-yandex', branch: 'master'
 gem 'pry'
 
@@ -69,3 +72,5 @@ gem 'action_policy', '~> 0.4.0'
 gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
 
 gem 'sentry-raven', '~> 3.0'
+
+gem 'httparty', '~> 0.20.0'
