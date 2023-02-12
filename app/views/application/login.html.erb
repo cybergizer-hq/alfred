@@ -3,7 +3,7 @@
     <h1>Alfred</h1>
     <h2 class="form-title">welcomes you</h2>
     <div style='text-align: center'>Please log in with a Cybergizer account</div>
-    <%= link_to 'Log in with Discord', user_discord_omniauth_authorize_url, class: 'form-submit login-button' %>
+    <%= button_to 'Log in with Discord', user_discord_omniauth_authorize_url, class: 'form-submit login-button' %>
   </div>
   <div class="signin-image">
     <figure><%=image_tag 'alfred.png' %></figure>
