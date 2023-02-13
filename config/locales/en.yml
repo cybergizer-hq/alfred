@@ -31,5 +31,4 @@
 
 en:
   hello: "Hello world"
-  discord_failure_alert: An error has occurred when log in Discord.
   non_cybergizer_server_member_alert: Only members of the Cybergizer Discord Server can log in.

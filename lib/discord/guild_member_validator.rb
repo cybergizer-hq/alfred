@@ -9,7 +9,7 @@ module Discord
     end
 
     def guild_member?
-      guilds.any? { |guild| guild['id'].eql?(ENV['CYBERGIZER_GUILD_ID']) }
+      guilds.any? { |guild| guild['id'].eql?(ENV['CYBERGIZER_GUILD_ID']) } if valid_guilds?
     end
 
     private
@@ -17,11 +17,15 @@ module Discord
     attr_reader :request
 
     def guilds
-      HTTParty.get(ENV['DISCORD_GUILDS_URL'], headers: { 'Authorization': "Bearer #{token}" })
+      @guilds ||= HTTParty.get(ENV['DISCORD_GUILDS_URL'], headers: { 'Authorization': "Bearer #{token}" })
     end
 
     def token
-      request.env['omniauth.auth'].credentials.token
+      request.env['omniauth.auth']&.credentials&.token
+    end
+
+    def valid_guilds?
+      guilds.message.eql?('OK')
     end
   end
 end
