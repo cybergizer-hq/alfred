@@ -31,4 +31,4 @@
 
 en:
   hello: "Hello world"
-  invalid_guild_member_alert: Only members of the Cybergizer Discord Server can log in.
+  invalid_guild_member_alert: Only members of the Discord Server can log in.
