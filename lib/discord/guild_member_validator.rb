@@ -9,7 +9,7 @@ module Discord
     end
 
     def guild_member?
-      guilds.any? { |guild| guild['id'].eql?(ENV['CYBERGIZER_GUILD_ID']) } if valid_guilds?
+      guilds.any? { |guild| guild['id'].eql?(ENV['DISCORD_GUILD_ID']) } if valid_guilds?
     end
 
     private

@@ -22,7 +22,7 @@ module Users
     def authorize_guild_member
       return if Discord::GuildMemberValidator.call(request)
 
-      redirect_to root_path, notice: t('non_cybergizer_server_member_alert')
+      redirect_to root_path, notice: t('invalid_guild_member_alert')
     end
   end
 end
