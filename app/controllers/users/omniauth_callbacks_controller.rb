@@ -20,7 +20,7 @@ module Users
     private
 
     def authorize_guild_member
-      return if Discord::GuildMemberValidator.new(request, ENV['CYBERGIZER_SERVER_ID']).call
+      return if Discord::GuildMemberValidator.call(request)
 
       redirect_to root_path, notice: t('non_cybergizer_server_member_alert')
     end

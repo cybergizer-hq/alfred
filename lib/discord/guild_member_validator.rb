@@ -1,21 +1,20 @@
 module Discord
   class GuildMemberValidator
-    def initialize(request, server_id)
+    def initialize(request)
       @request = request
-      @server_id = server_id
     end
 
-    def call
-      guild_member?
+    def self.call(*args)
+      new(*args).guild_member?
+    end
+
+    def guild_member?
+      guilds.any? { |guild| guild['id'].eql?(ENV['CYBERGIZER_GUILD_ID']) }
     end
 
     private
 
-    attr_reader :request, :server_id
-
-    def guild_member?
-      guilds.any? { |guild| guild['id'].eql?(server_id) }
-    end
+    attr_reader :request
 
     def guilds
       HTTParty.get(ENV['DISCORD_GUILDS_URL'], headers: { 'Authorization': "Bearer #{token}" })
