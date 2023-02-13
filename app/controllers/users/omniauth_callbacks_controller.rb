@@ -3,7 +3,7 @@
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     skip_before_action :authenticate_user!
-    before_action :guild_member?
+    before_action :authorize_guild_member
 
     def discord
       @user = User.from_omniauth(request.env['omniauth.auth'])
@@ -19,14 +19,10 @@ module Users
 
     private
 
-    def guild_member?
-      return if Discord::GuildMemberValidator.new(guilds, ENV['CYBERGIZER_SERVER_ID']).call
+    def authorize_guild_member
+      return if Discord::GuildMemberValidator.new(request, ENV['CYBERGIZER_SERVER_ID']).call
 
       redirect_to root_path, notice: t('non_cybergizer_server_member_alert')
-    end
-
-    def guilds
-      Discord::Guilds.new(request).call
     end
   end
 end
