@@ -11,6 +11,17 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  def self.from_omniauth(auth)
+    where(email: auth.info.email).first_or_initialize.tap do |user|
+      user.uid = auth.uid
+      user.email = auth.info.email
+      fullname = auth.info.name.split(/[.\s]/, 2)
+      user.first_name, user.last_name = fullname.size.eql?(2) ? fullname : [*fullname, ''] if [user.first_name, user.last_name].any?(&:blank?)
+
+      user.save
+    end
+  end
+
   def admin?
     is_admin
   end

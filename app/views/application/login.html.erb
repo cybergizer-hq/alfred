@@ -2,13 +2,8 @@
   <div class="signin-form">
     <h1>Alfred</h1>
     <h2 class="form-title">welcomes you</h2>
-    <div style='text-align: center'>Please log in with a Cybergizer account</div>
-    <%= link_to 'Log in', user_yandex_omniauth_authorize_url, class: 'form-submit login-button' %>
-     <div style='text-align: center' class="mt-4">Or enter your e-mail to get one-time link</div>
-    <%= form_with url: create_self_invitation_url do |f| %>
-      <%= f.text_field :email, class: 'form-control' %>
-      <%= f.submit 'Send link', class: 'form-submit login-button' %>
-    <% end %>
+    <div style='text-align: center'>Please log in or register an account</div>
+    <%= button_to 'Log in with Discord', user_discord_omniauth_authorize_url, class: 'form-submit login-button' %>
   </div>
   <div class="signin-image">
     <figure><%=image_tag 'alfred.png' %></figure>

@@ -1,17 +1,11 @@
 module OmniauthMacros
-  def yandex_hash
-    OmniAuth.config.mock_auth[:yandex] =
+  def discord_hash
+    OmniAuth.config.mock_auth[:discord] =
       OmniAuth::AuthHash.new({
-                               "provider": 'yandex',
-                               "uid": '123545',
+                               "uid": Faker::Number.number(digits: 6),
                                "info": {
-                                 "email": 'test@cybergizer.com'
-                               },
-                               "extra": {
-                                 "raw_info": {
-                                   'first_name': 'John',
-                                   'last_name': 'Doe'
-                                 }
+                                 "email": Faker::Internet.email,
+                                 "name": Faker::Name.name
                                }
                              })
   end
