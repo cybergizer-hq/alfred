@@ -50,8 +50,8 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'devise'
-gem 'doorkeeper'
-gem 'doorkeeper-openid_connect', github: 'valkovik15/doorkeeper-openid_connect'
+gem 'doorkeeper', '~> 5.6', '>= 5.6.4'
+gem 'doorkeeper-openid_connect', '~> 1.8', '>= 1.8.3'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection'
