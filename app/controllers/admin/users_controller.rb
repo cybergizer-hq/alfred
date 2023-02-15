@@ -76,7 +76,7 @@ module Admin
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :dob, :avatar,
-                                   :email, oauth_application_ids: [])
+                                   :email, :alternative_email, oauth_application_ids: [])
     end
 
     def set_application_names
