@@ -56,7 +56,7 @@ RSpec.describe '/users', type: :request do
     let(:email) { Faker::Internet.email }
 
     it 'redirects to the admin' do
-      post create_invitation_url, params: { email: email }
+      post create_invitation_url, params: { email: }
       expect(response).to redirect_to(admin_users_url)
     end
   end
@@ -69,12 +69,12 @@ RSpec.describe '/users', type: :request do
       let(:email) { user.email }
 
       it 'redirects to root' do
-        post create_self_invitation_url, params: { email: email }
+        post create_self_invitation_url, params: { email: }
         expect(response).to redirect_to(root_url)
       end
 
       it 'sends flash notice' do
-        post create_self_invitation_url, params: { email: email }
+        post create_self_invitation_url, params: { email: }
         expect(flash[:notice]).to eq('The link was sent to your email')
       end
     end
@@ -83,12 +83,12 @@ RSpec.describe '/users', type: :request do
       let(:email) { Faker::Internet.email }
 
       it 'redirects to root' do
-        post create_self_invitation_url, params: { email: email }
+        post create_self_invitation_url, params: { email: }
         expect(response).to redirect_to(root_url)
       end
 
       it 'sends flash alert' do
-        post create_self_invitation_url, params: { email: email }
+        post create_self_invitation_url, params: { email: }
         expect(flash[:alert]).to eq('This e-mail is not present in our DB')
       end
     end
@@ -100,13 +100,13 @@ RSpec.describe '/users', type: :request do
     context 'with existing user' do
       it 'redirects to the user and clears token' do
         user = create(:user, magic_link_token: token)
-        get email_link_url, params: { token: token }
+        get email_link_url, params: { token: }
         expect(response).to redirect_to(user_url(user))
       end
 
       it 'clears the user token' do
         user = create(:user, magic_link_token: token)
-        get email_link_url, params: { token: token }
+        get email_link_url, params: { token: }
         user.reload
         expect(user.magic_link_token).to be_nil
       end
@@ -114,12 +114,12 @@ RSpec.describe '/users', type: :request do
 
     context 'with a nonexistent user' do
       it 'redirects to the login' do
-        get email_link_url, params: { token: token }
+        get email_link_url, params: { token: }
         expect(response).to redirect_to(root_url)
       end
 
       it 'sends flash alert' do
-        get email_link_url, params: { token: token }
+        get email_link_url, params: { token: }
         expect(flash[:alert]).to eq('Your token is invalid')
       end
     end
