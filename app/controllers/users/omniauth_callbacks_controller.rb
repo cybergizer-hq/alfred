@@ -8,6 +8,8 @@ module Users
     def discord
       @user = User.from_omniauth(request.env['omniauth.auth'])
 
+      redirect_to root_path, notice: t('invalid_discord_user_alert') and return if @user.nil?
+
       if @user.persisted?
         sign_in_and_redirect @user
         set_flash_message(:notice, :success, kind: 'Discord') if is_navigational_format?
