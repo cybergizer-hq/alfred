@@ -1,5 +1,5 @@
 <p>
-  <%=image_tag @user.avatar %>
+  <%= image_tag(@user.avatar, height: '300') %>
 </p>
 
 <p>
@@ -50,4 +50,6 @@
 <% if allowed_to?(:invite_from_ui?, @user) %>
   <%= button_to t('.invite'), create_invitation_path(email: @user.email), method: :post, class: 'user-show-button btn btn-success' %>
 <% end %>
+
+  <%= link_to 'Back', admin_users_path, class: 'user-show-button btn btn-danger' %>
 </div>
