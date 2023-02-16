@@ -68,7 +68,7 @@ RSpec.describe 'admin/users', type: :request do
 
       it 'redirects to the created user' do
         post admin_users_url, params: { user: attributes }
-        expect(response).to redirect_to(user_url(User.last))
+        expect(response).to redirect_to(admin_user_url(User.last))
       end
 
       it 'sends flash notice' do
