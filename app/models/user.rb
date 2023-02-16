@@ -12,9 +12,9 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   def self.from_omniauth(auth)
-    where(email: auth.info.email).first_or_initialize.tap do |user|
+    where(email: auth.info.email).or(where(alternative_email: auth.info.email)).first_or_initialize.tap do |user|
       user.uid = auth.uid
-      user.email = auth.info.email
+      user.email = auth.info.email if user.email.blank?
       fullname = auth.info.name.split(/[.\s]/, 2)
       user.first_name, user.last_name = fullname.size.eql?(2) ? fullname : [*fullname, ''] if [user.first_name, user.last_name].any?(&:blank?)
 
