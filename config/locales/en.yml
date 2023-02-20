@@ -32,4 +32,4 @@
 en:
   hello: "Hello world"
   invalid_guild_member_alert: Only members of the Discord Server can log in.
-  invalid_discord_user_alert: An error occurred while trying to log in via Discord. Please try again
+  invalid_discord_user_alert: An error occurred while trying to log in via Discord. Try to check that your email is verified on your discord account.
