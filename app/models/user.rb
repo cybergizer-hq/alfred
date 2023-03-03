@@ -15,7 +15,7 @@ class User < ApplicationRecord
     email = auth.info.email
     return if email.blank?
 
-    where(email: email).or(where(alternative_email: email)).first_or_initialize.tap do |user|
+    where('email ILIKE ?', email).or(where('alternative_email ILIKE ?', email)).first_or_initialize.tap do |user|
       user.uid = auth.uid
       user.email = email if user.email.blank?
       fullname = auth.info.name.split(/[.\s]/, 2)
