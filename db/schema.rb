@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(version: 2023_02_15_212518) do
     t.index ["user_id"], name: "index_app_admissions_on_user_id"
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "oauth_access_grants", force: :cascade do |t|
     t.bigint "resource_owner_id", null: false
     t.bigint "application_id", null: false
