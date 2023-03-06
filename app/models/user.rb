@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   def self.from_omniauth(auth)
-    email = auth.info.email
+    email = auth.info.email.downcase
     return if email.blank?
 
     where(email: email).or(where(alternative_email: email)).first_or_initialize.tap do |user|
