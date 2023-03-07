@@ -57,6 +57,8 @@ gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection'
 gem 'pry'
 
+gem 'data_migrate'
+
 gem 'dotenv-rails'
 
 gem 'rubocop'
