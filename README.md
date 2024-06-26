@@ -125,10 +125,17 @@ Run rails server
 rails s
 ```
 
+Setup specs
+
+```bash
+docker compose up -d
+RAILS_ENV=test bundle exec rails db:setup
+```
+
 Run specs
 
 ```bash
-rspec spec
+bundle exec rspec
 ```
 
 ## Configuration
