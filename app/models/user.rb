@@ -19,8 +19,8 @@ class User < ApplicationRecord
     where(email: email).or(where(alternative_email: email)).first_or_initialize.tap do |user|
       user.uid = auth.uid
       user.email = email if user.email.blank?
-      fullname = auth.info.name.split(/[.\s]/, 2)
-      user.first_name, user.last_name = fullname.size.eql?(2) ? fullname : [*fullname, ''] if [user.first_name, user.last_name].any?(&:blank?)
+      user.first_name, user.last_name = UserNamePartitioner.new(user, auth.info.name).call
+      user.oauth_applications << OauthApplication.default_access if user.oauth_applications.empty?
 
       user.save
     end
