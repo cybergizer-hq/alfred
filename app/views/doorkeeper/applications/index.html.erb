@@ -10,6 +10,7 @@
     <th><%= t('.name') %></th>
     <th><%= t('.callback_url') %></th>
     <th><%= t('.confidential') %></th>
+    <th><%= t('.default_access') %></th>
     <th><%= t('.actions') %></th>
     <th></th>
   </tr>
@@ -25,6 +26,9 @@
       </td>
       <td class="align-middle">
         <%= application.confidential? ? t('doorkeeper.applications.index.confidentiality.yes') : t('doorkeeper.applications.index.confidentiality.no') %>
+      </td>
+      <td class="align-middle">
+        <%= application.default_access? ? t('doorkeeper.applications.index.default_access_application.yes') : t('doorkeeper.applications.index.default_access_application.no') %>
       </td>
       <td class="align-middle">
         <%= link_to t('doorkeeper.applications.buttons.edit'), edit_oauth_application_path(application), class: 'btn btn-link' %>
