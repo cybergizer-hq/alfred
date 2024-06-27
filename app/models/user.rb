@@ -13,17 +13,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   def self.from_omniauth(auth)
-    email = auth.info.email.downcase
-    return if email.blank?
-
-    where(email: email).or(where(alternative_email: email)).first_or_initialize.tap do |user|
-      user.uid = auth.uid
-      user.email = email if user.email.blank?
-      user.first_name, user.last_name = UserNamePartitioner.new(user, auth.info.name).call
-      user.oauth_applications << OauthApplication.default_access if user.oauth_applications.empty?
-
-      user.save
-    end
+    OmniauthUserService.new(auth).call
   end
 
   def admin?

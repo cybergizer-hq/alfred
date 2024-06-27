@@ -10,14 +10,16 @@ RSpec.describe 'users/auth', type: :request do
 
     context 'when user exists' do
       let(:user) { create(:user) }
+      let(:auth_email) { user.email }
+      let(:auth_name) { 'username' }
 
       before do
         OmniAuth.config.mock_auth[:discord] =
           OmniAuth::AuthHash.new({
             'uid': Faker::Number.number(digits: 6),
             'info': {
-              'email': user.email,
-              'name': Faker::Name.name
+              'email': auth_email,
+              'name': auth_name
             }
           })
       end
@@ -29,6 +31,36 @@ RSpec.describe 'users/auth', type: :request do
       it 'redirects to root_url' do
         action
         expect(response).to redirect_to(root_url)
+      end
+
+      context 'when user has first_name and last_name' do
+        let(:first_name) { Faker::Name.first_name }
+        let(:last_name) { Faker::Name.last_name }
+        let(:user) { create(:user, first_name: first_name, last_name: last_name ) }
+
+        it 'doesnt change user.first_name' do
+          action
+          expect(user.reload.first_name).to eq(first_name)
+        end
+
+        it 'doesnt change user.last_name' do
+          action
+          expect(user.reload.last_name).to eq(last_name)
+        end
+      end
+
+      context 'when user doesnt have first_name and last_name' do
+        let(:user) { create(:user, first_name: '', last_name: '' ) }
+
+        it 'first_name is set' do
+          action
+          expect(user.reload.first_name).to eq(auth_name)
+        end
+
+        it 'last_name isnt set' do
+          action
+          expect(user.reload.last_name).to eq('')
+        end
       end
 
       context 'when OathApplications present' do
@@ -70,16 +102,18 @@ RSpec.describe 'users/auth', type: :request do
     context 'when user doesnt exist' do
       let!(:other_user) { create(:user) }
 
-      let(:email) { Faker::Internet.email }
-      let(:name) { Faker::Name.name }
+      let(:auth_email) { Faker::Internet.email }
+      let(:auth_name) { 'username' }
+
+      let(:user) { User.find_by(email: auth_email)}
 
       before do
         OmniAuth.config.mock_auth[:discord] =
           OmniAuth::AuthHash.new({
             'uid': Faker::Number.number(digits: 6),
             'info': {
-              'email': email,
-              'name': name
+              'email': auth_email,
+              'name': auth_name
             }
           })
       end
@@ -93,11 +127,19 @@ RSpec.describe 'users/auth', type: :request do
         expect(response).to redirect_to(root_url)
       end
 
+      it 'first_name is set' do
+        action
+        expect(user.reload.first_name).to eq(auth_name)
+      end
+
+      it 'last_name isnt set' do
+        action
+        expect(user.reload.last_name).to eq('')
+      end
+
       context 'when OathApplications present' do
         let!(:oapp1) { create(:oauth_application) }
         let!(:oapp2) { create(:oauth_application) }
-
-        let(:user) { User.find_by(email: email)}
 
         context 'when there are no default_access oauth apps' do
           it 'doesnt change user.oauth_applications' do
