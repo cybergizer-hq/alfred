@@ -111,6 +111,12 @@ RSpec.describe 'admin/users', type: :request do
   end
 
   describe 'PUT /deactivate' do
+    it "revokes the user's OAuth access tokens" do
+      token = create(:access_token, resource_owner_id: user.id)
+      put admin_deactivate_user_url(user)
+      expect(token.reload).to be_revoked
+    end
+
     it 'redirects to the updated user' do
       put admin_deactivate_user_url(user)
       expect(response).to redirect_to(admin_user_url(user))

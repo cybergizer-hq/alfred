@@ -12,5 +12,9 @@ FactoryBot.define do
     trait :without_dob do
       dob { nil }
     end
+
+    trait :deactivated do
+      deactivated_at { Time.current }
+    end
   end
 end

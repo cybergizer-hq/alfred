@@ -3,6 +3,7 @@ module Api
     class UsersController < ApplicationController
       skip_before_action :authenticate_user!
       before_action :doorkeeper_authorize!
+      before_action :reject_inactive_resource_owner
 
       def me
         render json: {
@@ -19,7 +20,18 @@ module Api
       private
 
       def current_resource_owner
-        User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+        return unless doorkeeper_token
+
+        @current_resource_owner ||= User.find_by(id: doorkeeper_token.resource_owner_id)
+      end
+
+      # Deactivation revokes tokens, but this also catches owners deactivated
+      # without callbacks (update_column, SQL) and tokens whose owner was deleted.
+      def reject_inactive_resource_owner
+        return if current_resource_owner&.active_for_authentication?
+
+        render json: { error: 'invalid_token', error_description: 'The access token is no longer valid.' },
+               status: :unauthorized
       end
     end
   end

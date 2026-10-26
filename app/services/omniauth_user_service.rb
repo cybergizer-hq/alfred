@@ -9,6 +9,7 @@ class OmniauthUserService
 
   def call
     return if email.blank?
+    return if user.deactivated_at?
 
     assign_basic_attrs
     assign_names
@@ -23,7 +24,7 @@ class OmniauthUserService
   attr_reader :auth
 
   def email
-    @email ||= auth.info.email.downcase
+    @email ||= auth.info.email&.downcase
   end
 
   def user

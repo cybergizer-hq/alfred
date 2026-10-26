@@ -94,8 +94,30 @@ RSpec.describe '/users', type: :request do
     end
   end
 
+  describe 'deactivating a signed-in user' do
+    it 'ends their existing session' do
+      user = create(:user)
+      sign_in user
+      get user_url(user)
+      expect(response).to be_successful
+
+      user.update!(deactivated_at: Time.current)
+      get user_url(user)
+      expect(response).not_to be_successful
+    end
+  end
+
   describe 'GET /magic_login' do
     let(:token) { Faker::Lorem.characters }
+
+    context 'with a deactivated user' do
+      it 'does not sign them in and keeps the token' do
+        user = create(:user, :deactivated, magic_link_token: token)
+        get email_link_url, params: { token: }
+        expect(response).to redirect_to(root_url)
+        expect(user.reload.magic_link_token).to eq(token)
+      end
+    end
 
     context 'with existing user' do
       it 'redirects to the user and clears token' do
