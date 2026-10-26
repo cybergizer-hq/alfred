@@ -32,12 +32,16 @@ class UsersController < ApplicationController
   end
 
   def magic_login
-    user = User.where(magic_link_token: params[:token]).first
-    if user
-      user.update(magic_link_token: nil)
-      sign_in(user, scope: :user)
-      redirect_to user_path(user)
-    else
+    token = params[:token]
+    user = User.find_by(magic_link_token: token) if token.is_a?(String) && token.present?
+    consumed = user && user.deactivated_at.nil? &&
+               User.where(id: user.id, magic_link_token: token)
+                   .update_all(magic_link_token: nil) == 1
+
+     if consumed
+       sign_in(user, scope: :user)
+       redirect_to user_path(user)
+     else
       flash[:alert] = 'Your token is invalid'
       redirect_to root_path
     end
