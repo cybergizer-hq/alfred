@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :store_user_location!, if: :storable_location?, except: :login
 
-  before_action :authenticate_user_from_token!
   before_action :authenticate_user!, except: :login
 
   before_action do
@@ -36,16 +35,5 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || root_path
-  end
-
-  def authenticate_user_from_token!
-    user_token = params[:user_token].presence
-    user       = user_token && User.find_by(authentication_token: user_token.to_s)
-
-    # Notice we are passing store false, so the user is not
-    # actually stored in the session and a token is needed
-    # for every request. If you want the token to work as a
-    # sign in token, you can simply remove store: false.
-    sign_in user, store: false if user
   end
 end

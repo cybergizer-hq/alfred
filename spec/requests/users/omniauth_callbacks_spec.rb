@@ -159,5 +159,71 @@ RSpec.describe 'users/auth', type: :request do
 
       end
     end
+
+    context 'when user is deactivated' do
+      let!(:oapp) { create(:oauth_application, default_access: true) }
+      let!(:user) { create(:user, :deactivated, uid: 'original-uid') }
+
+      before do
+        OmniAuth.config.mock_auth[:discord] =
+          OmniAuth::AuthHash.new({
+            'uid': Faker::Number.number(digits: 6),
+            'info': {
+              'email': user.email,
+              'name': 'username'
+            }
+          })
+      end
+
+      it 'redirects to root_url' do
+        action
+        expect(response).to redirect_to(root_url)
+      end
+
+      it 'doesnt sign user in' do
+        action
+        get user_url(user)
+        expect(response).to redirect_to(login_url)
+      end
+
+      it 'doesnt add default_access oauth apps' do
+        action
+        expect(user.reload.oauth_applications).to be_empty
+      end
+
+      it 'doesnt update user' do
+        expect { action }.not_to(change { user.reload.uid })
+      end
+    end
+
+    context 'when discord email is missing' do
+      let!(:user) { create(:user) }
+
+      before do
+        OmniAuth.config.mock_auth[:discord] =
+          OmniAuth::AuthHash.new({
+            'uid': Faker::Number.number(digits: 6),
+            'info': {
+              'email': nil,
+              'name': 'username'
+            }
+          })
+      end
+
+      it 'doesnt create user' do
+        expect { action }.not_to change(User, :count)
+      end
+
+      it 'redirects to root_url' do
+        action
+        expect(response).to redirect_to(root_url)
+      end
+
+      it 'doesnt sign anyone in' do
+        action
+        get user_url(user)
+        expect(response).to redirect_to(login_url)
+      end
+    end
   end
 end
