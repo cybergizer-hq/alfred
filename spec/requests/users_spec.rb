@@ -123,5 +123,44 @@ RSpec.describe '/users', type: :request do
         expect(flash[:alert]).to eq('Your token is invalid')
       end
     end
+
+    context 'with a missing or malformed token' do
+      let!(:user) { create(:user, magic_link_token: nil) }
+
+      [
+        ['no token param', {}],
+        ['an empty token', { token: '' }],
+        ['an array token', { token: [''] }],
+        ['a hash token',   { token: { a: 'b' } }]
+      ].each do |label, params|
+        context "with #{label}" do
+          it 'redirects to root' do
+            get email_link_url, params: params
+            expect(response).to redirect_to(root_url)
+          end
+
+          it 'sends flash alert' do
+            get email_link_url, params: params
+            expect(flash[:alert]).to eq('Your token is invalid')
+          end
+
+          it 'does not sign anyone in' do
+            get email_link_url, params: params
+            get user_url(user)
+            expect(response).not_to be_successful
+          end
+        end
+      end
+    end
+
+    context 'with an already used token' do
+      it 'rejects the second use' do
+        create(:user, magic_link_token: token)
+        get email_link_url, params: { token: }
+        sign_out :user
+        get email_link_url, params: { token: }
+        expect(response).to redirect_to(root_url)
+      end
+    end
   end
 end
